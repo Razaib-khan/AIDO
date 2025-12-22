@@ -14,14 +14,13 @@ export default function PageTransition() {
   const [show, setShow] = useState(true)
 
   useEffect(() => {
-<<<<<<< HEAD
+
     // Initialize all blocks as visible
     const blocks = Array.from({ length: TOTAL_BLOCKS }, (_, i) => i);
     setVisibleBlocks(blocks);
 
     // Calculate interval per block to complete in TOTAL_DURATION
-=======
->>>>>>> 9a39155 (the code I did with you and it has minimal backend setup)
+
     const intervalTime = TOTAL_DURATION / TOTAL_BLOCKS;
 
     const interval = setInterval(() => {
