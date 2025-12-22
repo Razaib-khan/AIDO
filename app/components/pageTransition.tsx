@@ -8,15 +8,20 @@ const TOTAL_BLOCKS = ROWS * COLS;
 const TOTAL_DURATION = .6 * 1000; // 1.4 seconds in ms
 
 export default function PageTransition() {
-  const [visibleBlocks, setVisibleBlocks] = useState<number[]>([]);
-  const [show, setShow] = useState(true);
+  const [visibleBlocks, setVisibleBlocks] = useState<number[]>(
+    Array.from({ length: TOTAL_BLOCKS }, (_, i) => i)
+  );
+  const [show, setShow] = useState(true)
 
   useEffect(() => {
+<<<<<<< HEAD
     // Initialize all blocks as visible
     const blocks = Array.from({ length: TOTAL_BLOCKS }, (_, i) => i);
     setVisibleBlocks(blocks);
 
     // Calculate interval per block to complete in TOTAL_DURATION
+=======
+>>>>>>> 9a39155 (the code I did with you and it has minimal backend setup)
     const intervalTime = TOTAL_DURATION / TOTAL_BLOCKS;
 
     const interval = setInterval(() => {
@@ -48,7 +53,7 @@ export default function PageTransition() {
       {Array.from({ length: TOTAL_BLOCKS }, (_, i) => (
         <div
           key={i}
-          className={`bg-[#9cff7b] border-[1px] border-[#9cff7b] transition-opacity duration-150 ${
+          className={`bg-[#9cff7b] border border-[#9cff7b] transition-opacity duration-150 ${
             visibleBlocks.includes(i) ? "opacity-100" : "opacity-0"
           }`}
         />
