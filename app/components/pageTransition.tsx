@@ -5,15 +5,21 @@ import { useEffect, useState } from "react";
 const ROWS = 8;
 const COLS = 12;
 const TOTAL_BLOCKS = ROWS * COLS;
-const TOTAL_DURATION = 0.6 * 1000; // 0.6 seconds
+const TOTAL_DURATION = .6 * 1000; // 1.4 seconds in ms
 
 export default function PageTransition() {
-  const [visibleBlocks, setVisibleBlocks] = useState<number[]>([]);
-  const [show, setShow] = useState(true);
+  const [visibleBlocks, setVisibleBlocks] = useState<number[]>(
+    Array.from({ length: TOTAL_BLOCKS }, (_, i) => i)
+  );
+  const [show, setShow] = useState(true)
 
   useEffect(() => {
+
+    // Initialize all blocks as visible
     const blocks = Array.from({ length: TOTAL_BLOCKS }, (_, i) => i);
     setVisibleBlocks(blocks);
+
+    // Calculate interval per block to complete in TOTAL_DURATION
 
     const intervalTime = TOTAL_DURATION / TOTAL_BLOCKS;
 
@@ -21,10 +27,11 @@ export default function PageTransition() {
       setVisibleBlocks((prev) => {
         if (prev.length === 0) {
           clearInterval(interval);
-          setShow(false); // remove entire grid
+          setShow(false); // remove grid from DOM
           return [];
         }
 
+        // Pick a random block to remove
         const idx = Math.floor(Math.random() * prev.length);
         const newBlocks = [...prev];
         newBlocks.splice(idx, 1);
@@ -35,7 +42,6 @@ export default function PageTransition() {
     return () => clearInterval(interval);
   }, []);
 
-  // Remove from DOM entirely when show is false
   if (!show) return null;
 
   return (
@@ -46,7 +52,7 @@ export default function PageTransition() {
       {Array.from({ length: TOTAL_BLOCKS }, (_, i) => (
         <div
           key={i}
-          className={`bg-[#9cff7b] border-[1px] border-[#9cff7b] transition-opacity duration-150 ${
+          className={`bg-[#9cff7b] border border-[#9cff7b] transition-opacity duration-150 ${
             visibleBlocks.includes(i) ? "opacity-100" : "opacity-0"
           }`}
         />

@@ -1,85 +1,67 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { gsap } from "gsap";
 
-const emojis = ["✨", "🔥", "💖", "🌟", "🎉", "💎"];
+const NUM_CIRCLES = 20;
 
-export default function EmojiCursor() {
-  const [particles, setParticles] = useState<
-    { id: number; x: number; y: number; emoji: string }[]
-  >([]);
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
-
+export default function Cursor() {
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth > 768);
-    };
+    const coords = { x: 0, y: 0 };
+    const circles: HTMLDivElement[] = [];
 
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+    for (let i = 0; i < NUM_CIRCLES; i++) {
+      const circle = document.createElement("div");
+      circle.className =
+        "cursor-circle fixed mt-4 top-0 left-0 w-6 h-6 rounded-full bg-[#8cfe65]/50 pointer-events-none z-[9999]";
+      circle.style.opacity = `${1 - i / NUM_CIRCLES}`;
+      circles.push(circle);
+      document.body.appendChild(circle);
+    }
 
-  useEffect(() => {
-    if (!isLargeScreen) return; 
-
-    let id = 0;
+    circles.forEach((circle) => {
+      (circle as any).x = 0;
+      (circle as any).y = 0;
+    });
 
     const handleMouseMove = (e: MouseEvent) => {
-      const newParticle = {
-        id: id++,
-        x: e.clientX,
-        y: e.clientY,
-        emoji: emojis[Math.floor(Math.random() * emojis.length)],
-      };
-
-      setParticles((prev) => [...prev, newParticle]);
-
-      setTimeout(() => {
-        setParticles((prev) => prev.filter((p) => p.id !== newParticle.id));
-      }, 1000);
+      coords.x = e.clientX;
+      coords.y = e.clientY;
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isLargeScreen]);
 
-  if (!isLargeScreen) return null;
+    const update = () => {
+      let x = coords.x;
+      let y = coords.y;
 
-  return (
-    <>
-      {particles.map((p) => (
-        <span
-          key={p.id}
-          style={{
-            position: "fixed",
-            left: p.x,
-            top: p.y,
-            pointerEvents: "none",
-            fontSize: Math.random() * 20 + 20,
-            transform: "translate(-50%, -50%)",
-            transition: "all 0.8s ease-out",
-            opacity: 0,
-            animation: "fadeUp 0.8s forwards",
-            zIndex: 9999,
-          }}
-        >
-          {p.emoji}
-        </span>
-      ))}
+      circles.forEach((circle, index) => {
+        const scale = (circles.length - index) / circles.length;
 
-      <style jsx>{`
-        @keyframes fadeUp {
-          0% {
-            opacity: 1;
-            transform: translate(-50%, -50%) translateY(0px) scale(1);
-          }
-          100% {
-            opacity: 0;
-            transform: translate(-50%, -50%) translateY(-40px) scale(0.5);
-          }
-        }
-      `}</style>
-    </>
-  );
+        gsap.set(circle, {
+          x: x - 12,
+          y: y - 12,
+          duration: 0.2,
+          scale,
+        });
+
+        (circle as any).x = x;
+        (circle as any).y = y;
+
+        const next = circles[index + 1] || circles[0];
+        x += ((next as any).x - x) * 0.3;
+        y += ((next as any).y - y) * 0.3;
+      });
+    };
+
+    gsap.ticker.add(update);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      gsap.ticker.remove(update);
+      circles.forEach((c) => c.remove());
+    };
+  }, []);
+
+  return null;
 }
