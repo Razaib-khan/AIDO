@@ -52,7 +52,7 @@ export default function PageTransition() {
       {Array.from({ length: TOTAL_BLOCKS }, (_, i) => (
         <div
           key={i}
-          className={`bg-[#9cff7b] border border-[#9cff7b] transition-opacity duration-150 ${
+          className={`bg-[#40D2E0] border border-[#40D2E0] transition-opacity duration-150 ${
             visibleBlocks.includes(i) ? "opacity-100" : "opacity-0"
           }`}
         />

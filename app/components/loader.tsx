@@ -9,22 +9,22 @@ import { Google_Sans } from "next/font/google";
 
 const card1 = {
     color: "#fff",
-    headingText: "World’s First AI-Powered Todo App",
-    subheadingText: "Organize your tasks, boost productivity, and achieve more with AI-driven task management.",
-    descriptionText: "Let AI prioritize, remind, and manage your tasks—so you can focus on what matters.",
+    headingText: "Premium Raw Seafood Marketplace",
+    subheadingText: "Connect with buyers and sellers of the freshest raw seafood.",
+    descriptionText: "Buy direct from suppliers or sell your premium catch to restaurants and home chefs.",
     featureList: [
-        "AI-Powered Task Management",
-        "Smart Reminders & Notifications"
+        "Fresh Daily Deliveries",
+        "Direct Supplier Network"
     ]
 };
 const card2 = {
     color: "#BFFDAA",
-    headingText: "Our Todo App",
-    subheadingText: "Manage your tasks smarter and faster.",
-    descriptionText: "Smart AI notifications help you stay on top of your work.",
+    headingText: "Start Your Fishera Journey",
+    subheadingText: "Whether you buy or sell, we've got you covered.",
+    descriptionText: "Join thousands of seafood enthusiasts and professionals.",
     featureList: [
-        "Task Prioritization",
-        "Custom Reminders"
+        "Quality Guaranteed",
+        "Secure Transactions"
     ]
 };
 
@@ -74,15 +74,15 @@ export default function Loader() {
             {showButton && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4">
                     <div className="heading text-black text-2xl sm:text-xl md:text-2xl font-bold">
-                        Welcome to AIDO
+                        Welcome to Fishera
                     </div>
                     <div className="subheading text-[#555555] text-lg sm:text-base md:text-lg mt-2">
-                        Your AI-Powered Productivity Companion. <br />
+                        Your Premium Raw Seafood Marketplace. <br />
                         We are so glad to have you here!
                     </div>
                     <Link href='/login'>
                     <button
-                        className={`${poppins.className} mt-4 cursor-pointer bg-[#a7ff8a] text-black px-6 py-2 rounded-full transition`}
+                        className={`${poppins.className} text-gray-900 mt-4 cursor-pointer bg-[#40D2E0] px-6 py-2 rounded-full transition`}
                     >
                         Enter App
                     </button>
@@ -113,7 +113,7 @@ export default function Loader() {
                         </ul>
                     </div>
 
-                    <div className="card2 border-2 border-black shadow-lg translate-y-[10%] rotate-[-20deg] w-[30vh] sm:w-[35vh] md:w-[40vh] h-[35vh] sm:h-[40vh] md:h-[45vh] rounded-2xl flex flex-col px-4 py-4 bg-[#BFFDAA]">
+                    <div className="card2 border-2 border-black shadow-lg translate-y-[10%] rotate-[-20deg] w-[30vh] sm:w-[35vh] md:w-[40vh] h-[35vh] sm:h-[40vh] md:h-[45vh] rounded-2xl flex flex-col px-4 py-4 bg-[#40D2E0]">
                         <div className={`${Google_Sans_Font.className} heading text-black text-[1.4vw] sm:text-[1.2rem] md:text-[1.6vw] leading-snug w-full`}>
                             {card2.headingText}
                         </div>
