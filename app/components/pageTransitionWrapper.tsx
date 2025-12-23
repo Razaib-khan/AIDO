@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import PageTransition from "./pageTransition";
 import { useState, useEffect } from "react";
 
