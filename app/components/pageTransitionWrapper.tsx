@@ -3,18 +3,24 @@
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import PageTransition from "./pageTransition";
+import { useState, useEffect } from "react";
 
 export default function PageTransitionWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  // Only render animations after client mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <>{children}</>; // render plain content on server
 
   return (
     <AnimatePresence mode="wait">
-      {/* Pixel wipe animation triggers on route change */}
-      <PageTransition key={pathname} />
-
-      {/* Page content fades in */}
+      <PageTransition key={`transition-${pathname}`} />
       <motion.div
-        key={pathname}
+        key={`content-${pathname}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

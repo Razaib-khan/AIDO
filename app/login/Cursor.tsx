@@ -13,7 +13,7 @@ export default function Cursor() {
     for (let i = 0; i < NUM_CIRCLES; i++) {
       const circle = document.createElement("div");
       circle.className =
-        "cursor-circle fixed mt-4 top-0 left-0 w-6 h-6 rounded-full bg-[#8cfe65]/50 pointer-events-none z-[9999]";
+        "cursor-circle fixed mt-4 top-0 left-0 w-6 h-6 rounded-full bg-[#40D2E0]/50 pointer-events-none z-[9999]";
       circle.style.opacity = `${1 - i / NUM_CIRCLES}`;
       circles.push(circle);
       document.body.appendChild(circle);
